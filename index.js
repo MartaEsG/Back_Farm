@@ -29,11 +29,10 @@ app.use(
 
 app.use(express.json());
 
-app.use("/", userRoutes); 
+app.use("/user", userRoutes); 
 app.use("/calendar", calendarRoutes); 
 app.use("/invoice", invoiceRoutes);
 app.use("/parcel", parcelRoutes );
-// app.use("/Directors", directorRoutes)
 
 app.listen(PORT, () =>
   console.log(`escuchando en el puerto http://localhost:${PORT}`)

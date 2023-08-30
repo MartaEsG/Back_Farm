@@ -9,48 +9,60 @@ const getParcel = async (req, res) => {
   }
 };
 
-// const postMovie = async (req, res) => {
-//   try {
-//     const newMovie = new Movie(req.body);
-//     if (req.file) {
-//       newMovie.img = req.file.path;
-//     }
-//     const createdMovie = await newMovie.save();
+// Devuelve información de la parcela por id. 
+const getParcelInfo = async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const userParcelInfo = await User.findOne( _id );
+  
+    return res.status(200).json(userParcelInfo);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 
-//     return res.status(201).json(createdMovie);
-//   } catch (error) {
-//     return res.status(500).json(error);
-//   }
-// };
+const postParcel = async (req, res) => {
+  try {
+    const newParcel = new Parcel(req.body);
+    if (req.file) {
+      newParcel.img = req.file.path;
+    }
+    const createdParcel = await newParcel.save();
 
-// const putMovie = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const putPelicula = new Movie(req.body);
-//     putPelicula._id = id;
-//     putPelicula.img = req.file.path;
-//     const updatedMovie = await Movie.findByIdAndUpdate(id, putPelicula, {
-//       new: true,
-//     });
-//     if (!updatedMovie) {
-//       return res.status(404).json({ message: "no existe este id de pelicula" });
-//     }
-//     return res.status(200).json(updatedMovie);
-//   } catch (error) {
-//     return res.status(500).json(error);
-//   }
-// };
-// const deleteMovie = async (req, res) => {
-//   try {
-//     const {id} = req.params;
-//     const deletedMovie = await Movie.findByIdAndDelete(id)
-//     if (!deletedMovie) {
-//         return res.status(404).json({message:"este id no existe"})
-//     }
-//     return res.status(200).json(deletedPeliclua);
-//   } catch (error) {
-//     return res.status(500).json(error)
-//   }
-// };
+    return res.status(201).json(createdParcel);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 
-module.exports = { getParcel };
+const putParcel = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const putParcel = new Parcel(req.body);
+    putParcel._id = id;
+    // putParcel.img = req.file.path;
+    const updatedParcel = await Parcel.findByIdAndUpdate(id, putParcel, {
+      new: true,
+    });
+    if (!updatedParcel) {
+      return res.status(404).json({ message: "no existe este id de pelicula" });
+    }
+    return res.status(200).json(updatedParcel);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+const deleteParcel = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const deletedParcel = await Parcel.findByIdAndDelete(id)
+    if (!deletedParcel) {
+        return res.status(404).json({message:"este id no existe"})
+    }
+    return res.status(200).json(deletedParcel);
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+};
+
+module.exports = { getParcel, getParcelInfo,postParcel, putParcel, deleteParcel };
