@@ -9,46 +9,44 @@ const getInvoice = async (req, res) => {
   }
 };
 
-// const postDirector = async (req, res) => {
-//   try {
-//     const newDirector = new Director(req.body);
-//     newDirector.img = req.file.path;
-//     const createdDirector = await newDirector.save();
+const postInvoice = async (req, res) => {
+  try {
+    const newInvoice = new Invoice(req.body);
+    const createdInvoice = await newInvoice.save();
 
-//     return res.status(201).json(createdDirector);
-//   } catch (error) {
-//     return res.status(500).json(error);
-//   }
-// };
+    return res.status(201).json(createdInvoice);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 
-// const putDirector = async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     const putDirector = new Director(req.body);
-//     putDirector._id = id;
-//     putDirector.img = req.file.path;
-//     const updatedDirector = await Director.findByIdAndUpdate(id, putDirector, {
-//       new: true,
-//     });
-//     if (!updatedDirector) {
-//       return res.status(404).json({ message: "no existe este id de director" });
-//     }
-//     return res.status(200).json(updatedDirector);
-//   } catch (error) {
-//     return res.status(500).json(error);
-//   }
-// };
-// const deleteDirector = async (req, res) => {
-//   try {
-//     const {id} = req.params;
-//     const deletedDirector = await Director.findByIdAndDelete(id)
-//     if (!deletedDirector) {
-//         return res.status(404).json({message:"este id no existe"})
-//     }
-//     return res.status(200).json(deletedActor);
-//   } catch (error) {
-//     return res.status(500).json(error)
-//   }
-// };
+const putInvoice = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const putInvoice = new Invoice(req.body);
+    putInvoice._id = id;
+    const updatedInvoice = await Invoice.findByIdAndUpdate(id, putInvoice, {
+      new: true,
+    });
+    if (!updatedInvoice) {
+      return res.status(404).json({ message: "no existe este id de director" });
+    }
+    return res.status(200).json(updatedInvoice);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+const deleteInvoice = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const deletedInvoice = await Invoice.findByIdAndDelete(id)
+    if (!deletedInvoice) {
+        return res.status(404).json({message:"este id no existe"})
+    }
+    return res.status(200).json(deletedInvoice);
+  } catch (error) {
+    return res.status(500).json(error)
+  }
+};
 
-module.exports = { getInvoice };
+module.exports = { getInvoice, postInvoice, putInvoice, deleteInvoice };

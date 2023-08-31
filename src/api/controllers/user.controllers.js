@@ -137,8 +137,8 @@ const postUser = async (req, res) => {
   const deleteUser = async (req, res) => {
     try {
       const {id} = req.params;
-      const deleteUser = await User.findByIdAndDelete(id)
-      if (!deleteUser) {
+      const deletedUser = await User.findByIdAndDelete(id)
+      if (!deletedUser) {
           return res.status(404).json({message:"este id no existe"})
       }
       return res.status(200).json(deletedUser);

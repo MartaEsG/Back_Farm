@@ -1,13 +1,13 @@
 const express = require("express")
-const {getInvoice} = require("../controllers/invoice.controllers")
-// const upload = require ("../../middlewares/upload.file")
+const {getInvoice, postInvoice, putInvoice, deleteInvoice} = require("../controllers/invoice.controllers")
+const {isAuth, isAdmin} = require("../../middlewares/auth")
 
 const invoiceRoutes = express.Router();
 
-invoiceRoutes.get("/:id", getInvoice);
-// invoiceRoutes.post("/", upload.single("image"), postDirector);
-// invoiceRoutes.put("/:id", upload.single("image"), putDirector);
-// invoiceRoutes.delete("/:id", deleteDirector);
+invoiceRoutes.get("", [isAuth], getInvoice);
+invoiceRoutes.post("", [isAdmin], postInvoice);
+invoiceRoutes.put("/:id", [isAdmin], putInvoice);
+invoiceRoutes.delete("/:id", [isAdmin], deleteInvoice);
 
 
 module.exports= invoiceRoutes;
